@@ -1,4 +1,4 @@
-var data = [
+/*var data = [
     {
         id: 1,
         author: "Muhammad Faizan",
@@ -9,7 +9,7 @@ var data = [
         author: "Jordan Walke",
         text: "This is *another* comment"
     }
-];
+];*/
 
 var Comment = React.createClass({
     rawMarkup: function () {
@@ -19,10 +19,9 @@ var Comment = React.createClass({
         };
     },
     render: function () {
-        return ( < div className = "comment" >
-            < h2 className = "commentAuthor" > {this.props.author} </h2> 
-                < span dangerouslySetInnerHTML = {this.rawMarkup()}
-            /></div>
+        return ( <div className = "comment">
+            <h2 className = "commentAuthor"> {this.props.author} </h2> 
+                <span dangerouslySetInnerHTML={this.rawMarkup()}/></div>
         )
     }
 })
@@ -56,7 +55,7 @@ var CommentBox = React.createClass({
     getInitialState: function() {
         return {data: []};
     },
-    componentDidMount: function() {
+    loadCommentsFromServer: function() {
         $.ajax({
             url:this.props.url,
             dataType: 'json',
@@ -70,6 +69,10 @@ var CommentBox = React.createClass({
             }.bind(this)
         });
     },
+    componentDidMount: function () {
+        this.loadCommentsFromServer();
+        setInterval(this.loadCommentsFromServer, this.props.pollInterval);
+    },
     render: function () {
         return ( 
             <div className="commentBox" >
@@ -82,6 +85,6 @@ var CommentBox = React.createClass({
 
 
 /*data = {data}*/
-ReactDOM.render( < CommentBox  url = "/api/comments"  />,
+ReactDOM.render( < CommentBox  url = "/api/comments" pollInterval={2000} />,
     document.getElementById('content')
 )
