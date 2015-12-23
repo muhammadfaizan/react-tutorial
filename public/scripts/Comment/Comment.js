@@ -36,8 +36,11 @@ var CommentList = React.createClass({
                 key = {comment.id} >{comment.text}</Comment>
             );
         });
-        return ( <div className = "commentList" > {commentNodes} </div>
-               );
+        return (
+            <div className = "commentList" >
+                {commentNodes}
+            </div>
+        );
     }
 });
 
@@ -60,8 +63,7 @@ var CommentBox = React.createClass({
 });
 
 
-
-ReactDOM.render( < CommentBox data = {data}
-    />,
+/*data = {data}*/
+ReactDOM.render( < CommentBox  url = "/api/comments"  />,
     document.getElementById('content')
 )
