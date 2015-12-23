@@ -53,10 +53,14 @@ var CommentForm = React.createClass({
 });
 var CommentBox = React.createClass({
     displayName: 'CommentBox',
+    getInitialState: function() {
+        return {data: []};
+    },
     render: function () {
-        return ( < div className = "commentBox" >
-            < h1 > Comments < /h1>
-                < CommentList data={this.props.data}/> <CommentForm />
+        return ( 
+            <div className="commentBox" >
+                <h1>Comments</h1>
+                <CommentList data={this.state.data}/> <CommentForm/>
             </div>
         );
     }
