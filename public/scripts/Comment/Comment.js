@@ -63,6 +63,10 @@ var CommentForm = React.createClass({
             return;
         }
         // TODO: send reqeust to server
+        this.props.onCommentSubmit({
+            author: author,
+            text: text
+        });
         this.setState({
             author:'',
             text: ''
